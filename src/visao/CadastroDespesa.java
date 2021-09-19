@@ -17,7 +17,6 @@ public class CadastroDespesa extends JFrame {
 		repaint();
 		validate();
 		setVisible(true);
-		//this.setDefaultCloseOperation(CadastroDespesa.HIDE_ON_CLOSE);
 	}
 
 	

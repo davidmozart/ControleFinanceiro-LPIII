@@ -7,22 +7,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import visao.CadastroReceita;
 import com.toedter.calendar.JDateChooser;
 
+import modelo.Receita;
+
 public class ControleCadReceita extends CadastroReceita implements ActionListener, WindowListener{
 
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	
 	private static final long serialVersionUID = 1L;
 	
 	private static ControleCadReceita instancia;
 	private static ControladorPrincipal contPrin = ControladorPrincipal.getInstance();
+	private static Receita receita;
 
 	
 	private JPanel panel_cadastro_despesa;
@@ -59,7 +66,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 			panel_cadastro_despesa.setLayout(null);
 			panel_cadastro_despesa.setForeground(Color.WHITE);
 			panel_cadastro_despesa.add(getPanel_principal_receitas());
-			panel_cadastro_despesa.add(getLbl_codigo_receita());
+			//panel_cadastro_despesa.add(getLbl_codigo_receita());
 			panel_cadastro_despesa.add(getLbl_valor_receita());
 			panel_cadastro_despesa.add(getLbl_data_receita());
 			panel_cadastro_despesa.add(getBtn_cadastrar_receita());
@@ -67,7 +74,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 			panel_cadastro_despesa.add(getLbl_descricao_despesa());
 			panel_cadastro_despesa.add(getTextField_descri_receita());
 			panel_cadastro_despesa.add(getTextField_valor_receita());
-			panel_cadastro_despesa.add(getTextField_codigo_receita());
+			//panel_cadastro_despesa.add(getTextField_codigo_receita());
 			panel_cadastro_despesa.add(getDate_data_receita());
 		}
 		return panel_cadastro_despesa;
@@ -129,6 +136,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 		if (btn_cadastrar_receita == null) {
 			btn_cadastrar_receita = new JButton("Cadastrar");
 			btn_cadastrar_receita.setBounds(169, 260, 105, 23);
+			btn_cadastrar_receita.addActionListener(this);
 		}
 		return btn_cadastrar_receita;
 	}
@@ -136,6 +144,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 		if (btn_cancelar_cadastro_receita == null) {
 			btn_cancelar_cadastro_receita = new JButton("Cancelar");
 			btn_cancelar_cadastro_receita.setBounds(300, 260, 105, 23);
+			btn_cancelar_cadastro_receita.addActionListener(this);
 		}
 		return btn_cancelar_cadastro_receita;
 	}
@@ -199,7 +208,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		//contPrin.setEnabled(true);
 	}
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
@@ -217,8 +226,25 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 		contPrin.setEnabled(false);
 	}
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource() == btn_cadastrar_receita) {
+			String data = sdf.format(getDate_data_receita().getDate());
+			//System.out.println(data);
+			try {
+				receita = new Receita();
+				receita.setDescricao(getTextField_descri_receita().getText());
+				receita.setValor(Float.parseFloat(getTextField_valor_receita().getText()));
+				receita.setData(data);
+				receita.setId(Receita.getReceita().size()+1);
+				Receita.getReceita().add(receita);
+				JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");	
+			}
+			catch(NumberFormatException e1) {
+				JOptionPane.showMessageDialog(null, "erro: "+e1.getMessage());
+			}
+		}else if(e.getSource() == btn_cancelar_cadastro_receita) {
+			//this.dispose();
+		}
 	}
 }

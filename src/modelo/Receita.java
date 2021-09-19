@@ -1,10 +1,15 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Receita {
 	
+	private Integer id;
 	private String descricao;
 	private double valor;
 	private String data;
+	private static List<Receita> receita = new ArrayList<>();
 	
 	public String getDescricao() {
 		return descricao;
@@ -23,8 +28,15 @@ public class Receita {
 	}
 	public void setData(String data) {
 		this.data = data;
-	} 
+	}
+	public static List<Receita> getReceita() {
+		return receita;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
-	
-
 }

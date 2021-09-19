@@ -8,13 +8,15 @@ public class Despesa {
 	private String descricao;
 	private double valor;
 	private String data;
-	public static List<Despesa> cadDespesa = new ArrayList<>();
+	private Integer id;
+	private static List<Despesa> cadDespesa = new ArrayList<>();
 	
-	public static List<Despesa> getCadDespesa() {
-		return cadDespesa;
+	
+	public Integer getId() {
+		return id;
 	}
-	public static void setCadDespesa(List<Despesa> cadDespesa) {
-		Despesa.cadDespesa = cadDespesa;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -34,5 +36,7 @@ public class Despesa {
 	public void setData(String data) {
 		this.data = data;
 	}
-
+	public static List<Despesa> getCadDespesa() {
+		return cadDespesa;
+	}
 }

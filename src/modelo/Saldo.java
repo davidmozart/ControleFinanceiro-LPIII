@@ -10,16 +10,13 @@ public class Saldo {
 		saldo = 0.0;
 	}
 
-	
 	public String getNome() {
 		return nome;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 
 	public double getSaldo() {
 		return saldo;
@@ -29,5 +26,4 @@ public class Saldo {
 		this.saldo = saldo;
 	}
 
-	
 }

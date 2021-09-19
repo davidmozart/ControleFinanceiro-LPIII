@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,12 +18,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import dados.Arquivos;
+import modelo.Despesa;
+import modelo.Receita;
 import visao.JanelaPrincipal;
 import visao.JpDashboard;
 import visao.JpDespesa;
 import visao.JpReceita;
 
-public class ControladorPrincipal extends JanelaPrincipal implements ActionListener {
+public class ControladorPrincipal extends JanelaPrincipal implements ActionListener, WindowListener {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -29,10 +34,10 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private static ControladorPrincipal instancia;
 	
 	
+	
 	private JpDashboard dashboard;
 	private JpDespesa despesas;
 	private JpReceita receitas;
-	
 	private JPanel panel_saldo_atual;
 	private JLabel lbl_saldo_atual;
 	private JPanel panel_receitas;
@@ -65,6 +70,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	public static synchronized ControladorPrincipal getInstance() {
 		if (instancia == null) {
 			instancia = new ControladorPrincipal();
+			instancia.addWindowListener(instancia);
 		} 
 		return instancia;
 	}
@@ -76,7 +82,6 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		tabbedPane.setBorder(null);
 		tabbedPane.setBackground(new Color(228, 228, 228));
 		this.getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
 		tabbedPane.addTab("Dashboard", null, getJPDashboard(), null);
 		tabbedPane.setForegroundAt(0, new Color(0, 0, 0));
 		tabbedPane.addTab("Receitas", null, getJPReceitas(), null);
@@ -360,6 +365,50 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		} else if(e.getSource() == receitas.getBtnNovaReceita()) {
 			ControleCadReceita.getInstance();
 		}
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+		Arquivos.addDespesa(Despesa.getCadDespesa());
+		Arquivos.addReceita(Receita.getReceita());
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }
