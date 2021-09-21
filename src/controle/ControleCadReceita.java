@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
@@ -16,8 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -170,8 +169,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 	}
 	public JFormattedTextField getTextField_valor_receita() {
 		if (textField_valor_receita == null) {
-			textField_valor_receita = new JFormattedTextField();
-			textField_valor_receita.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter()));
+			textField_valor_receita = new JFormattedTextField(new DecimalFormat("#.00"));
 			textField_valor_receita.setBounds(195, 128, 103, 20);
 			textField_valor_receita.setColumns(10);
 		}

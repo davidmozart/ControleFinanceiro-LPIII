@@ -15,8 +15,8 @@ import modelo.Receita;
 public class Arquivos {
 	
 	
-	private static String strPathReceita = "/home/oem/eclipse-workspace/LP3_Trabalho1/Receita.txt";
-	private static String strPathDespesa = "/home/oem/eclipse-workspace/LP3_Trabalho1/Despesa.txt"; 
+	private static String strPathReceita = "/home/oem/eclipse-workspace/ControleFinanceiro-LPIII/Receita.txt";
+	private static String strPathDespesa = "/home/oem/eclipse-workspace/ControleFinanceiro-LPIII/Despesa.txt"; 
 	
 	private static Despesa despesa;
 	private static Receita receita;

@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,8 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -182,9 +182,9 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 	}
 
 	public JFormattedTextField getText_valor_despesa() {
+		Locale.setDefault(Locale.US);
 		if (text_valor_despesa == null) {
-			text_valor_despesa = new JFormattedTextField();
-			text_valor_despesa.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter()));
+			text_valor_despesa = new JFormattedTextField(new DecimalFormat("#.00"));
 			text_valor_despesa.setBounds(194, 130, 103, 20);
 			text_valor_despesa.setColumns(10);
 		}
