@@ -11,19 +11,23 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
-import visao.CadastroReceita;
 import com.toedter.calendar.JDateChooser;
 
 import modelo.Receita;
+import visao.CadastroReceita;
 
 public class ControleCadReceita extends CadastroReceita implements ActionListener, WindowListener{
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -43,7 +47,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 	private JButton btn_cancelar_cadastro_receita;
 	private JLabel lbl_descricao_despesa;
 	private JTextField textField_descri_receita;
-	private JTextField textField_valor_receita;
+	private JFormattedTextField textField_valor_receita;
 	private JTextField textField_codigo_receita;
 	private JLabel lbl_icon_receita;
 	
@@ -164,11 +168,12 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 		}
 		return textField_descri_receita;
 	}
-	public JTextField getTextField_valor_receita() {
+	public JFormattedTextField getTextField_valor_receita() {
 		if (textField_valor_receita == null) {
-			textField_valor_receita = new JTextField();
-			textField_valor_receita.setColumns(10);
+			textField_valor_receita = new JFormattedTextField();
+			textField_valor_receita.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter()));
 			textField_valor_receita.setBounds(195, 128, 103, 20);
+			textField_valor_receita.setColumns(10);
 		}
 		return textField_valor_receita;
 	}
@@ -230,21 +235,24 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 		// TODO Auto-generated method stub
 		if(e.getSource() == btn_cadastrar_receita) {
 			String data = sdf.format(getDate_data_receita().getDate());
-			//System.out.println(data);
 			try {
 				receita = new Receita();
-				receita.setDescricao(getTextField_descri_receita().getText());
-				receita.setValor(Float.parseFloat(getTextField_valor_receita().getText()));
-				receita.setData(data);
 				receita.setId(Receita.getReceita().size()+1);
+				receita.setDescricao(getTextField_descri_receita().getText());
+				receita.setValor(Double.parseDouble(getTextField_valor_receita().getText()));
+				receita.setData(data);
+				ControladorPrincipal.addTabelaReceitaCad(receita.getId(), receita.getDescricao(), receita.getData(), receita.getValor());
 				Receita.getReceita().add(receita);
+				this.getTextField_descri_receita().setText(null);
+				this.getTextField_valor_receita().setText(null);
+				this.getDate_data_receita().setDate(null);
 				JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");	
 			}
 			catch(NumberFormatException e1) {
 				JOptionPane.showMessageDialog(null, "erro: "+e1.getMessage());
 			}
 		}else if(e.getSource() == btn_cancelar_cadastro_receita) {
-			//this.dispose();
+			
 		}
 	}
 }

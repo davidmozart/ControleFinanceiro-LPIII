@@ -8,16 +8,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
 public class JpDespesa extends JPanel {
 	private JButton btnAddDespesa;
 	private JButton btnVoltar_despesa;
-	private JTable table_despesas;
+	private JScrollPane scrollPane;
 	private JPanel panel_principal_despesas;
 	private JLabel lblDashboard;
+	private JTable table_despesas;
 
 	public JpDespesa() {
 		this.setBackground(UIManager.getColor("ArrowButton.background"));
@@ -27,7 +30,34 @@ public class JpDespesa extends JPanel {
 		add(getPanel_principal_despesas());
 		add(getBtnAddDespesa());
 		add(getBtnVoltar_despesa());
-		add(getTable_despesas());
+		add(getScrollPane());
+	}
+		
+		public JTable getTable_despesas() {
+			if (table_despesas == null) {
+				table_despesas = new JTable();
+				table_despesas.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"ID", "Descri\u00E7\u00E3o", "Data", "Valor"
+					}
+				) {
+					Class[] columnTypes = new Class[] {
+						Integer.class, String.class, String.class, Double.class
+					};
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+					boolean[] columnEditables = new boolean[] {
+						false, true, false, false
+					};
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+			}
+			return table_despesas;
 	}
 	public JButton getBtnAddDespesa() {
 		if (btnAddDespesa == null) {
@@ -36,23 +66,24 @@ public class JpDespesa extends JPanel {
 				public void actionPerformed(ActionEvent arg0) {
 				}
 			});
-			btnAddDespesa.setBounds(194, 287, 136, 23);
+			btnAddDespesa.setBounds(93, 287, 136, 23);
 		}
 		return btnAddDespesa;
 	}
 	public JButton getBtnVoltar_despesa() {
 		if (btnVoltar_despesa == null) {
 			btnVoltar_despesa = new JButton("Voltar");
-			btnVoltar_despesa.setBounds(340, 287, 89, 23);
+			btnVoltar_despesa.setBounds(259, 287, 136, 23);
 		}
 		return btnVoltar_despesa;
 	}
-	public JTable getTable_despesas() {
-		if (table_despesas == null) {
-			table_despesas = new JTable();
-			table_despesas.setBounds(17, 73, 564, 203);
+	public JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBounds(10, 81, 584, 194);
+			scrollPane.setViewportView(getTable_despesas());
 		}
-		return table_despesas;
+		return scrollPane;
 	}
 	public JPanel getPanel_principal_despesas() {
 		if (panel_principal_despesas == null) {
@@ -77,5 +108,4 @@ public class JpDespesa extends JPanel {
 	public void setBtnAddDespesa(JButton btnAddDespesa) {
 		this.btnAddDespesa = btnAddDespesa;
 	}
-	
 }

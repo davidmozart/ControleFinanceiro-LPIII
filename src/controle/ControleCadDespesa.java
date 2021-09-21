@@ -10,10 +10,13 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -41,7 +44,7 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 	private JButton btn_cancelar_cadastro_despesa;
 	private JLabel lbl_descricao_despesa;
 	private JTextField text_descricao_despesa;
-	private JTextField text_valor_despesa;
+	private JFormattedTextField text_valor_despesa;
 	private JTextField text_codigo_despesa;
 	private JLabel lbl_icone_despesas;
 
@@ -142,16 +145,6 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 		return lbl_data_despesa;
 	}
 
-	/*
-	 * public JDateChooser getDate_data_despesa() { 
-	 * if (date_data_despesa == null) {
-	 * JDateChooser date_data_despesa = new JDateChooser();
-	 * date_data_despesa.setBounds(194, 168, 131, 19); 
-	 * } 
-	 * return date_data_despesa; 
-	 * }
-	 */
-
 	public JButton getBtn_cadastrar_despesa() {
 		if (btn_cadastrar_despesa == null) {
 			btn_cadastrar_despesa = new JButton("Cadastrar");
@@ -188,9 +181,10 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 		return text_descricao_despesa;
 	}
 
-	public JTextField getText_valor_despesa() {
+	public JFormattedTextField getText_valor_despesa() {
 		if (text_valor_despesa == null) {
-			text_valor_despesa = new JTextField();
+			text_valor_despesa = new JFormattedTextField();
+			text_valor_despesa.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter()));
 			text_valor_despesa.setBounds(194, 130, 103, 20);
 			text_valor_despesa.setColumns(10);
 		}
@@ -229,12 +223,13 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 			try {
 				despesa = new Despesa();
 				despesa.setId(Despesa.getCadDespesa().size()+1);
-				despesa.setValor(Float.parseFloat(text_valor_despesa.getText()));
+				despesa.setValor(Double.parseDouble(text_valor_despesa.getText()));
 				despesa.setData(data);
 				despesa.setDescricao(text_descricao_despesa.getText());
 				Despesa.getCadDespesa().add(despesa);
 				getText_valor_despesa().setText(null);
 				getText_descricao_despesa().setText(null);
+				ControladorPrincipal.addTabelaDespesaCad(despesa.getId(), despesa.getDescricao(), despesa.getData(), despesa.getValor());
 				JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
 			} catch (NumberFormatException e1) {
 				JOptionPane.showMessageDialog(null, "Erro: " + e1.getMessage());

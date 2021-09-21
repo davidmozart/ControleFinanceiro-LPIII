@@ -1,21 +1,26 @@
 package visao;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTable;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 @SuppressWarnings("serial")
 public class JpReceita extends JPanel {
 	private JPanel panel_principal_receitas;
 	private JLabel lblReceitas;
-	private JTable table_receitas;
+	//private JTable table_receitas;
 	private JButton btnNovaReceita;
 	private JButton btnVoltar_despesa;
+	private JScrollPane scrollPane;
+	private JTable table_receitas;
+	
 
 	public JpReceita() {
 		// TODO Auto-generated constructor stub
@@ -25,6 +30,7 @@ public class JpReceita extends JPanel {
 		add(getTable_receitas());
 		add(getBtnNovaReceita());
 		add(getBtnVoltar_despesa());
+		add(getScrollPane());
 	}
 
 	public JPanel getPanel_principal_receitas() {
@@ -47,13 +53,7 @@ public class JpReceita extends JPanel {
 		}
 		return lblReceitas;
 	}
-	public JTable getTable_receitas() {
-		if (table_receitas == null) {
-			table_receitas = new JTable();
-			table_receitas.setBounds(20, 73, 558, 203);
-		}
-		return table_receitas;
-	}
+	
 	public JButton getBtnNovaReceita() {
 		if (btnNovaReceita == null) {
 			btnNovaReceita = new JButton("Nova receita");
@@ -71,5 +71,22 @@ public class JpReceita extends JPanel {
 			btnVoltar_despesa.setBounds(321, 294, 89, 23);
 		}
 		return btnVoltar_despesa;
+	}
+	public JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBounds(43, 104, 532, 151);
+			scrollPane.setViewportView(getTable_receitas());
+		}
+		return scrollPane;
+	}
+	public JTable getTable_receitas() {
+		if (table_receitas == null) {
+			table_receitas = new JTable();
+			table_receitas.setShowVerticalLines(true);
+			table_receitas.setForeground(Color.BLACK);
+			table_receitas.setBackground(Color.WHITE);		
+		}
+		return table_receitas;
 	}
 }

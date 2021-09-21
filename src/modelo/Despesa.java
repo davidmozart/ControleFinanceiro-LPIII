@@ -6,12 +6,13 @@ import java.util.List;
 public class Despesa {
 
 	private String descricao;
-	private double valor;
+	private Double valor;
 	private String data;
 	private Integer id;
 	private static List<Despesa> cadDespesa = new ArrayList<>();
 	
-	
+	public Despesa() {
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -24,7 +25,7 @@ public class Despesa {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public double getValor() {
+	public Double getValor() {
 		return valor;
 	}
 	public void setValor(double valor) {
@@ -39,4 +40,6 @@ public class Despesa {
 	public static List<Despesa> getCadDespesa() {
 		return cadDespesa;
 	}
+	
+
 }

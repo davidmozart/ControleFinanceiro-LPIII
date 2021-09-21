@@ -7,7 +7,7 @@ public class Receita {
 	
 	private Integer id;
 	private String descricao;
-	private double valor;
+	private Double valor;
 	private String data;
 	private static List<Receita> receita = new ArrayList<>();
 	
@@ -17,7 +17,7 @@ public class Receita {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public double getValor() {
+	public Double getValor() {
 		return valor;
 	}
 	public void setValor(double valor) {
