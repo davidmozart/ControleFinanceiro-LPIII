@@ -218,7 +218,6 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 		if (e.getSource() == getBtn_cadastrar_despesa()) {
 
 			String data = sdf.format(getDateChooser().getDate());
-			System.out.println(data);
 
 			try {
 				despesa = new Despesa();
@@ -256,17 +255,11 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 	public void windowClosing(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		contPrin.setEnabled(true);
-		// arquivos.addArquivos(Despesa.getCadDespesa());
-		for (Despesa add : Despesa.getCadDespesa()) {
-			System.out.println(add.getValor() + " " + add.getDescricao() + " " + add.getData());
-		}
-
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		// contPrin.setEnabled(true);
 	}
 
 	@Override
@@ -284,7 +277,6 @@ public class ControleCadDespesa extends CadastroDespesa implements ActionListene
 	@Override
 	public void windowOpened(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		// JOptionPane.showMessageDialog(null, "Teste");
 		contPrin.setEnabled(false);
 	}
 }

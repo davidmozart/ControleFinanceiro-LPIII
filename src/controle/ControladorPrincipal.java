@@ -50,23 +50,22 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel lbldashboard;
 	private JLabel lbl_RS1_1;
 	private JLabel lbl_RS1_1_1;
-	private JTextField txtSaldo_atual_valor;
+	private static JTextField txtSaldo_atual_valor;
 	private static JTextField txtReceitas_valor;
 	private static JTextField txtDespesas_valor;
 	private JPanel panel_principal;
 	private JLabel lbltotal_d;
 	private JLabel lbltotal_d_1;
-	private JTextField text_num_total_despesas;
-	private JTextField text_num_total_receitas;
+	private static JTextField text_num_total_despesas;
+	private static JTextField text_num_total_receitas;
 	private JTable table;
 	private JLabel lbl_acompanhamento_geral;
 	private JLabel lbl_icone_saldo;
 	private JLabel lbl_icone_receitas;
 	private JLabel lbl_icone_despesas;
 	private JTabbedPane guiaPaineis;
-	private static double somaDespesa = 0;
-	private static double somaReceita = 0;
-	private static double saldo;
+	private static double somaDespesa;
+	private static double somaReceita;
 
 	private ControladorPrincipal() {
 		addEventos();
@@ -86,10 +85,17 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		Arquivos.readReceita();
 		addTabelaReceita();
 		addTabelaDespesa();
-		getTxtReceitas_valor().setText(String.valueOf(somaReceita));
-		getTxtDespesas_valor().setText(String.valueOf(somaDespesa));
-	}	
+		calculoDashboard();
+		
+	}
 	
+	private void calculoDashboard() {
+		getTxtReceitas_valor().setText(String.format("%.2f", somaReceita));
+		getTxtDespesas_valor().setText(String.format("%.2f", somaDespesa));
+		getTxtSaldo_atual_valor().setText(String.format("%.2f", somaReceita-somaDespesa));
+		getText_num_total_despesas().setText(String.valueOf(Despesa.getCadDespesa().size()));
+		getText_num_total_receitas().setText(String.valueOf(Receita.getReceita().size()));
+	}
 
 	private JTabbedPane getGuiaPaineis() {
 			guiaPaineis = new JTabbedPane(JTabbedPane.LEFT);
@@ -102,22 +108,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 			guiaPaineis.setForegroundAt(0, new Color(0, 0, 0));
 			guiaPaineis.addTab("Receitas", null, getJPReceitas(), null);
 			guiaPaineis.addTab("Despesas", null, getJPDespesas(), null);
-			guiaPaineis.addChangeListener(new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent arg0) {
-					// TODO Auto-generated method stub
-					if(guiaPaineis.getSelectedComponent() == getJPDashboard()) {
-						JOptionPane.showMessageDialog(null, "Dashboard");
-					}else if(guiaPaineis.getSelectedComponent() == getJPReceitas()) {
-						JOptionPane.showMessageDialog(null, "Receitas");
-					}else if(guiaPaineis.getSelectedComponent() == getJPDespesas()) {
-						JOptionPane.showMessageDialog(null, "Despesas");
-					}
-				}
-			});
 		return guiaPaineis;
 	}
-
 
 	private JpDashboard getJPDashboard() {
 		if (dashboard == null) {
@@ -188,6 +180,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		modelo.addRow(new Object[] {id, descricao, data, valor});
 		somaDespesa += valor;
 		getTxtDespesas_valor().setText(String.valueOf(somaDespesa));
+		getTxtSaldo_atual_valor().setText(String.format("%.2f", somaReceita-somaDespesa));
+		getText_num_total_despesas().setText(String.valueOf(Despesa.getCadDespesa().size()));
 	}
 	
 	private JpReceita getJPReceitas() {
@@ -200,6 +194,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 					"ID", "Descrição", "Data", "Valor"
 				}
 			) {
+				
+				private static final long serialVersionUID = 1L;
 				Class[] columnTypes = new Class[] {
 					Integer.class, String.class, String.class, Double.class
 				};
@@ -240,6 +236,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		modelo.addRow(new Object[] {id, descricao, data, valor});
 		somaReceita += valor;
 		getTxtReceitas_valor().setText(String.valueOf(somaReceita));
+		getTxtSaldo_atual_valor().setText(String.format("%.2f", somaReceita-somaDespesa));
+		getText_num_total_receitas().setText(String.valueOf(Receita.getReceita().size()));
 	}
 	
 	private JPanel getPanel_saldo_atual() {
@@ -369,7 +367,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		return lbl_RS1_1_1;
 	}
 	
-	private JTextField getTxtSaldo_atual_valor() {
+	private static JTextField getTxtSaldo_atual_valor() {
 		if (txtSaldo_atual_valor == null) {
 			txtSaldo_atual_valor = new JTextField("");
 			txtSaldo_atual_valor.setBounds(21, 33, 137, 24);
@@ -436,26 +434,28 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		return lbltotal_d_1;
 	}
 	
-	private JTextField getText_num_total_despesas() {
+	private static JTextField getText_num_total_despesas() {
 		if (text_num_total_despesas == null) {
 			text_num_total_despesas = new JTextField();
+			text_num_total_despesas.setSelectionColor(Color.WHITE);
+			text_num_total_despesas.setDisabledTextColor(Color.WHITE);
 			text_num_total_despesas.setEditable(false);
 			text_num_total_despesas.setHorizontalAlignment(SwingConstants.CENTER);
 			text_num_total_despesas.setFont(new Font("Arial", Font.PLAIN, 14));
-			text_num_total_despesas.setText("00\r\n");
 			text_num_total_despesas.setBounds(221, 151, 59, 20);
 			text_num_total_despesas.setColumns(10);
 		}
 		return text_num_total_despesas;
 	}
 	
-	private JTextField getText_num_total_receitas() {
+	private static JTextField getText_num_total_receitas() {
 		if (text_num_total_receitas == null) {
 			text_num_total_receitas = new JTextField();
+			text_num_total_receitas.setDisabledTextColor(Color.WHITE);
+			text_num_total_receitas.setSelectionColor(Color.WHITE);
 			text_num_total_receitas.setEditable(false);
 			text_num_total_receitas.setHorizontalAlignment(SwingConstants.CENTER);
 			text_num_total_receitas.setFont(new Font("Arial", Font.PLAIN, 14));
-			text_num_total_receitas.setText("00\r\n");
 			text_num_total_receitas.setColumns(10);
 			text_num_total_receitas.setBounds(502, 151, 59, 20);
 		}

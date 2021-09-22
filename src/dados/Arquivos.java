@@ -20,7 +20,7 @@ public class Arquivos {
 	
 	private static Despesa despesa;
 	private static Receita receita;
-	File arquivo;
+	
 	
 
 	public Arquivos() {

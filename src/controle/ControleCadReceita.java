@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -153,7 +154,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 	}
 	public JLabel getLbl_descricao_despesa() {
 		if (lbl_descricao_despesa == null) {
-			lbl_descricao_despesa = new JLabel("Descri\u00E7\u00E3o da receita: ");
+			lbl_descricao_despesa = new JLabel("Descrição da receita: ");
 			lbl_descricao_despesa.setFont(new Font("Arial", Font.PLAIN, 13));
 			lbl_descricao_despesa.setBounds(48, 205, 147, 14);
 		}
@@ -168,6 +169,7 @@ public class ControleCadReceita extends CadastroReceita implements ActionListene
 		return textField_descri_receita;
 	}
 	public JFormattedTextField getTextField_valor_receita() {
+		Locale.setDefault(Locale.US);
 		if (textField_valor_receita == null) {
 			textField_valor_receita = new JFormattedTextField(new DecimalFormat("#.00"));
 			textField_valor_receita.setBounds(195, 128, 103, 20);
