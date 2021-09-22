@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 @SuppressWarnings("serial")
 public class JpDespesa extends JPanel {
 	private JButton btnAddDespesa;
-	private JButton btnVoltar_despesa;
 	private JScrollPane scrollPane;
 	private JPanel panel_principal_despesas;
 	private JLabel lblDashboard;
@@ -29,7 +28,6 @@ public class JpDespesa extends JPanel {
 		this.setLayout(null);
 		add(getPanel_principal_despesas());
 		add(getBtnAddDespesa());
-		add(getBtnVoltar_despesa());
 		add(getScrollPane());
 	}
 		
@@ -66,16 +64,9 @@ public class JpDespesa extends JPanel {
 				public void actionPerformed(ActionEvent arg0) {
 				}
 			});
-			btnAddDespesa.setBounds(93, 287, 136, 23);
+			btnAddDespesa.setBounds(236, 287, 136, 23);
 		}
 		return btnAddDespesa;
-	}
-	public JButton getBtnVoltar_despesa() {
-		if (btnVoltar_despesa == null) {
-			btnVoltar_despesa = new JButton("Voltar");
-			btnVoltar_despesa.setBounds(259, 287, 136, 23);
-		}
-		return btnVoltar_despesa;
 	}
 	public JScrollPane getScrollPane() {
 		if (scrollPane == null) {

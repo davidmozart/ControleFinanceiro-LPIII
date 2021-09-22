@@ -58,8 +58,6 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel lbltotal_d_1;
 	private static JTextField text_num_total_despesas;
 	private static JTextField text_num_total_receitas;
-	private JTable table;
-	private JLabel lbl_acompanhamento_geral;
 	private JLabel lbl_icone_saldo;
 	private JLabel lbl_icone_receitas;
 	private JLabel lbl_icone_despesas;
@@ -122,8 +120,6 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 			dashboard.add(getLbltotal_d_1());
 			dashboard.add(getText_num_total_despesas());
 			dashboard.add(getText_num_total_receitas());
-			dashboard.add(getTable());
-			dashboard.add(getLbl_acompanhamento_geral());
 		}
 		return dashboard;
 	}
@@ -187,6 +183,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JpReceita getJPReceitas() {
 		if (receitas == null) {
 			receitas = new JpReceita();
+			receitas.getScrollPane().setBounds(10, 74, 584, 204);
 			receitas.getTable_receitas().setModel(new DefaultTableModel(
 				new Object[][] {
 				},
@@ -209,10 +206,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 					return columnEditables[column];
 				}
 			});
-			receitas.getBtnVoltar_despesa().setSize(123, 23);
-			receitas.getBtnVoltar_despesa().setLocation(312, 294);
-			receitas.getBtnNovaReceita().setSize(123, 23);
-			receitas.getBtnNovaReceita().setLocation(152, 294);
+			receitas.getBtnNovaReceita().setSize(131, 23);
+			receitas.getBtnNovaReceita().setLocation(238, 290);
 			receitas.getTable_receitas().setBounds(23, 73, 571, 203);
 			receitas.getPanel_principal_receitas().setBounds(0, 0, 594, 62);
 			receitas.getBtnNovaReceita().addActionListener(this);
@@ -244,7 +239,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 		if (panel_saldo_atual == null) {
 			panel_saldo_atual = new JPanel();
 			panel_saldo_atual.setBackground(Color.WHITE);
-			panel_saldo_atual.setBounds(28, 73, 168, 67);
+			panel_saldo_atual.setBounds(27, 73, 249, 80);
 			panel_saldo_atual.setLayout(null);
 			panel_saldo_atual.add(getLbl_saldo_atual());
 			panel_saldo_atual.add(getLbl_RS1());
@@ -257,9 +252,9 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel getLbl_saldo_atual() {
 		if (lbl_saldo_atual == null) {
 			lbl_saldo_atual = new JLabel("Saldo Atual:");
-			lbl_saldo_atual.setBounds(5, 8, 70, 13);
+			lbl_saldo_atual.setBounds(5, 8, 113, 20);
 			lbl_saldo_atual.setForeground(Color.DARK_GRAY);
-			lbl_saldo_atual.setFont(new Font("Arial", Font.BOLD, 10));
+			lbl_saldo_atual.setFont(new Font("Dialog", Font.BOLD, 16));
 			lbl_saldo_atual.setVerticalAlignment(SwingConstants.TOP);
 			lbl_saldo_atual.setHorizontalAlignment(SwingConstants.LEFT);
 		}
@@ -271,7 +266,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 			panel_receitas = new JPanel();
 			panel_receitas.setBorder(UIManager.getBorder("List.cellNoFocusBorder"));
 			panel_receitas.setBackground(Color.WHITE);
-			panel_receitas.setBounds(208, 73, 169, 67);
+			panel_receitas.setBounds(27, 165, 249, 80);
 			panel_receitas.setLayout(null);
 			panel_receitas.add(getLbl_receitas());
 			panel_receitas.add(getLbl_RS1_1());
@@ -284,11 +279,11 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel getLbl_receitas() {
 		if (lbl_receitas == null) {
 			lbl_receitas = new JLabel("Receitas:");
-			lbl_receitas.setBounds(5, 5, 56, 13);
+			lbl_receitas.setBounds(5, 5, 88, 23);
 			lbl_receitas.setForeground(Color.DARK_GRAY);
 			lbl_receitas.setVerticalAlignment(SwingConstants.TOP);
 			lbl_receitas.setHorizontalAlignment(SwingConstants.LEFT);
-			lbl_receitas.setFont(new Font("Arial", Font.BOLD, 10));
+			lbl_receitas.setFont(new Font("Dialog", Font.BOLD, 16));
 		}
 		return lbl_receitas;
 	}
@@ -298,7 +293,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 			panel_despesas = new JPanel();
 			panel_despesas.setBorder(UIManager.getBorder("List.cellNoFocusBorder"));
 			panel_despesas.setBackground(Color.WHITE);
-			panel_despesas.setBounds(389, 73, 174, 67);
+			panel_despesas.setBounds(27, 257, 249, 79);
 			panel_despesas.setLayout(null);
 			panel_despesas.add(getLbl_despesas());
 			panel_despesas.add(getLbl_RS1_1_1());
@@ -311,11 +306,11 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel getLbl_despesas() {
 		if (lbl_despesas == null) {
 			lbl_despesas = new JLabel("despesas:");
-			lbl_despesas.setBounds(5, 5, 63, 13);
+			lbl_despesas.setBounds(5, 5, 97, 23);
 			lbl_despesas.setForeground(Color.DARK_GRAY);
 			lbl_despesas.setVerticalAlignment(SwingConstants.TOP);
 			lbl_despesas.setHorizontalAlignment(SwingConstants.LEFT);
-			lbl_despesas.setFont(new Font("Arial", Font.BOLD, 10));
+			lbl_despesas.setFont(new Font("Dialog", Font.BOLD, 16));
 		}
 		return lbl_despesas;
 	}
@@ -380,7 +375,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private static JTextField getTxtReceitas_valor() {
 		if (txtReceitas_valor == null) {
 			txtReceitas_valor = new JTextField("");
-			txtReceitas_valor.setBounds(20, 33, 137, 24);
+			txtReceitas_valor.setBounds(20, 33, 163, 24);
 			txtReceitas_valor.setSelectionColor(Color.WHITE);
 			txtReceitas_valor.setDisabledTextColor(Color.WHITE);
 			txtReceitas_valor.setEditable(false);
@@ -393,7 +388,7 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private static JTextField getTxtDespesas_valor() {
 		if (txtDespesas_valor == null) {
 			txtDespesas_valor = new JTextField("");
-			txtDespesas_valor.setBounds(27, 33, 137, 24);
+			txtDespesas_valor.setBounds(20, 32, 161, 24);
 			txtDespesas_valor.setDisabledTextColor(Color.WHITE);
 			txtDespesas_valor.setSelectionColor(Color.WHITE);
 			txtDespesas_valor.setEditable(false);
@@ -419,8 +414,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel getLbltotal_d() {
 		if (lbltotal_d == null) {
 			lbltotal_d = new JLabel("N\u00FAmero total de despesas:\r\n");
-			lbltotal_d.setFont(new Font("Arial", Font.PLAIN, 15));
-			lbltotal_d.setBounds(12, 152, 199, 18);
+			lbltotal_d.setFont(new Font("Dialog", Font.BOLD, 16));
+			lbltotal_d.setBounds(306, 77, 241, 18);
 		}
 		return lbltotal_d;
 	}
@@ -428,8 +423,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel getLbltotal_d_1() {
 		if (lbltotal_d_1 == null) {
 			lbltotal_d_1 = new JLabel("N\u00FAmero total de receitas:\r\n");
-			lbltotal_d_1.setFont(new Font("Arial", Font.PLAIN, 15));
-			lbltotal_d_1.setBounds(309, 151, 189, 18);
+			lbltotal_d_1.setFont(new Font("Dialog", Font.BOLD, 16));
+			lbltotal_d_1.setBounds(306, 225, 241, 18);
 		}
 		return lbltotal_d_1;
 	}
@@ -441,8 +436,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 			text_num_total_despesas.setDisabledTextColor(Color.WHITE);
 			text_num_total_despesas.setEditable(false);
 			text_num_total_despesas.setHorizontalAlignment(SwingConstants.CENTER);
-			text_num_total_despesas.setFont(new Font("Arial", Font.PLAIN, 14));
-			text_num_total_despesas.setBounds(221, 151, 59, 20);
+			text_num_total_despesas.setFont(new Font("Dialog", Font.PLAIN, 17));
+			text_num_total_despesas.setBounds(316, 107, 212, 26);
 			text_num_total_despesas.setColumns(10);
 		}
 		return text_num_total_despesas;
@@ -455,35 +450,18 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 			text_num_total_receitas.setSelectionColor(Color.WHITE);
 			text_num_total_receitas.setEditable(false);
 			text_num_total_receitas.setHorizontalAlignment(SwingConstants.CENTER);
-			text_num_total_receitas.setFont(new Font("Arial", Font.PLAIN, 14));
+			text_num_total_receitas.setFont(new Font("Dialog", Font.PLAIN, 17));
 			text_num_total_receitas.setColumns(10);
-			text_num_total_receitas.setBounds(502, 151, 59, 20);
+			text_num_total_receitas.setBounds(316, 257, 212, 26);
 		}
 		return text_num_total_receitas;
-	}
-	
-	private JTable getTable() {
-		if (table == null) {
-			table = new JTable();
-			table.setBounds(28, 213, 536, 118);
-		}
-		return table;
-	}
-	
-	private JLabel getLbl_acompanhamento_geral() {
-		if (lbl_acompanhamento_geral == null) {
-			lbl_acompanhamento_geral = new JLabel("Acompanhamento geral:");
-			lbl_acompanhamento_geral.setFont(new Font("Arial", Font.PLAIN, 15));
-			lbl_acompanhamento_geral.setBounds(195, 194, 199, 18);
-		}
-		return lbl_acompanhamento_geral;
 	}
 	
 	private JLabel getLbl_icone_saldo() {
 		if (lbl_icone_saldo == null) {
 			lbl_icone_saldo = new JLabel("");
-			lbl_icone_saldo.setIcon(new ImageIcon("C:\\Users\\Iago Ramon\\eclipse-workspace\\LP3_Trabalho1\\Imagens\\saldo atual.png"));
-			lbl_icone_saldo.setBounds(114, 18, 44, 38);
+			lbl_icone_saldo.setIcon(new ImageIcon("/home/oem/eclipse-workspace/ControleFinanceiro-LPIII/Imagens/saldo atual.png"));
+			lbl_icone_saldo.setBounds(180, 8, 44, 38);
 		}
 		return lbl_icone_saldo;
 	}
@@ -491,8 +469,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel getLbl_icone_receitas() {
 		if (lbl_icone_receitas == null) {
 			lbl_icone_receitas = new JLabel("");
-			lbl_icone_receitas.setIcon(new ImageIcon("C:\\Users\\Iago Ramon\\eclipse-workspace\\LP3_Trabalho1\\Imagens\\receitas.png"));
-			lbl_icone_receitas.setBounds(115, 18, 44, 38);
+			lbl_icone_receitas.setIcon(new ImageIcon("/home/oem/eclipse-workspace/ControleFinanceiro-LPIII/Imagens/receitas.png"));
+			lbl_icone_receitas.setBounds(193, 5, 44, 38);
 		}
 		return lbl_icone_receitas;
 	}
@@ -500,8 +478,8 @@ public class ControladorPrincipal extends JanelaPrincipal implements ActionListe
 	private JLabel getLbl_icone_despesas() {
 		if (lbl_icone_despesas == null) {
 			lbl_icone_despesas = new JLabel("");
-			lbl_icone_despesas.setIcon(new ImageIcon("C:\\Users\\Iago Ramon\\eclipse-workspace\\LP3_Trabalho1\\Imagens\\despesas.png"));
-			lbl_icone_despesas.setBounds(120, 18, 44, 38);
+			lbl_icone_despesas.setIcon(new ImageIcon("/home/oem/eclipse-workspace/ControleFinanceiro-LPIII/Imagens/despesas.png"));
+			lbl_icone_despesas.setBounds(193, 5, 44, 38);
 		}
 		return lbl_icone_despesas;
 	}

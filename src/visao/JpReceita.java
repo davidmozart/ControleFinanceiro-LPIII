@@ -17,7 +17,6 @@ public class JpReceita extends JPanel {
 	private JLabel lblReceitas;
 	//private JTable table_receitas;
 	private JButton btnNovaReceita;
-	private JButton btnVoltar_despesa;
 	private JScrollPane scrollPane;
 	private JTable table_receitas;
 	
@@ -27,9 +26,7 @@ public class JpReceita extends JPanel {
 		this.setName("");
 		this.setLayout(null);
 		add(getPanel_principal_receitas());
-		add(getTable_receitas());
 		add(getBtnNovaReceita());
-		add(getBtnVoltar_despesa());
 		add(getScrollPane());
 	}
 
@@ -61,16 +58,9 @@ public class JpReceita extends JPanel {
 				public void actionPerformed(ActionEvent arg0) {
 				}
 			});
-			btnNovaReceita.setBounds(199, 294, 112, 23);
+			btnNovaReceita.setBounds(236, 294, 129, 23);
 		}
 		return btnNovaReceita;
-	}
-	public JButton getBtnVoltar_despesa() {
-		if (btnVoltar_despesa == null) {
-			btnVoltar_despesa = new JButton("Voltar");
-			btnVoltar_despesa.setBounds(321, 294, 89, 23);
-		}
-		return btnVoltar_despesa;
 	}
 	public JScrollPane getScrollPane() {
 		if (scrollPane == null) {
